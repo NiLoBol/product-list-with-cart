@@ -8,22 +8,25 @@ import { useCart } from "./components/Context";
 export default function Home() {
   let width: number;
 
-  useEffect(() => {
-    width = window.screen.width;
-  }, []);
-
   const { cart, setCart } = useCart();
   const [total, settotal] = useState<number>(0);
   const [Confirm, setConfirm] = useState<boolean>(false);
-  const screen = () => {
-    if (width >= 1440) {
-      return "dasktop";
-    } else if (width > 425) {
-      return "tablet";
-    } else {
-      return "mobile";
-    }
-  };
+  const [device, setdevice] = useState<"dasktop"|"tablet"|"mobile">("dasktop");
+  
+  useEffect(() => {
+    let width = window.screen.width;
+    const screen = () => {
+      if (width >= 1440) {
+        return "dasktop";
+      } else if (width > 425) {
+        return "tablet";
+      } else {
+        return "mobile";
+      }
+    };
+    setdevice(screen())
+  }, []);
+  
   useEffect(() => {
     if (Confirm) {
       document.body.classList.add("overflow-hidden");
@@ -38,7 +41,6 @@ export default function Home() {
     });
     settotal(sum);
   }, [cart]);
-  const typepc = screen();
 
   return (
     <main className="flex flex-row flex-wrap min-h-screen  container mx-auto">
@@ -52,15 +54,16 @@ export default function Home() {
         >
           {data.map((datas, index) => {
             let image;
-            if (typepc === "dasktop") {
+            if (device === "dasktop") {
               image = datas.image.desktop;
-            } else if (typepc === "tablet") {
+            } else if (device === "tablet") {
               image = datas.image.tablet;
-            } else if (typepc === "mobile") {
+            } else if (device === "mobile") {
               image = datas.image.mobile;
             } else {
               image = datas.image.thumbnail;
-            }
+            } 
+            
             return (
               <Item
                 key={index}
@@ -76,8 +79,8 @@ export default function Home() {
       </div>
       <div className="basis-2/5 max-md:basis-full">
         <div className="relative md:-top-20 md:w-4/5 w-full mx-auto bg-white p-5 rounded-2xl " >
-          <div className="my-5 mx-3 text-2xl font-bold text-Red ">
-            You Cart ({cart.length}) 
+          <div className="my-5 mx-3 text-2xl font-bold text-Red">
+            You Cart ({cart.length})
           </div>
           {cart.length == 0 ? (
             <img
@@ -147,7 +150,7 @@ export default function Home() {
                     <img
                       className="mb-5 mt-16"
                       src="./assets/images/icon-order-confirmed.svg"
-                      alt="icon-order-confirmed"
+                      alt=""
                     />
                     <div className="lg:text-5xl text-4xl font-bold ">
                       Order Comfirmed
@@ -162,7 +165,7 @@ export default function Home() {
                         <div key={"Confirm-"+index}>
                           <div className="flex flex-wrap my-2 mx-3 items-center">
                             <div className="basis-1/6 font-medium text-lg">
-                              <img src={data[item.id].image.thumbnail} alt={data[item.id].image.thumbnail} />
+                              <img src={data[item.id].image.thumbnail} alt="" />
                             </div>
                             <div className="basis-3/6 font-medium text-lg mx-5 ">
                               <div className="text-Rose-900">
