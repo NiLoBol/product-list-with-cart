@@ -77,7 +77,7 @@ export default function Home() {
       <div className="basis-2/5 max-md:basis-full">
         <div className="relative md:-top-20 md:w-4/5 w-full mx-auto bg-white p-5 rounded-2xl " >
           <div className="my-5 mx-3 text-2xl font-bold text-Red ">
-            You Cart ({cart.length})
+            You Cart ({cart.length}) 
           </div>
           {cart.length == 0 ? (
             <img
