@@ -10,6 +10,7 @@ export default function Home() {
 
   const { cart, setCart } = useCart();
   const [total, settotal] = useState<number>(0);
+  const [count, setcount] = useState<number>(0);
   const [Confirm, setConfirm] = useState<boolean>(false);
   const [device, setdevice] = useState<"dasktop"|"tablet"|"mobile">("dasktop");
   
@@ -36,18 +37,23 @@ export default function Home() {
   }, [Confirm]);
   useEffect(() => {
     let sum = 0;
+    let count = 0;
     cart.map((item) => {
       sum = sum + data[item.id].price * item.count;
     });
+    cart.map((item) => {
+      count = count + item.count;
+    });
     settotal(sum);
+    setcount(count)
   }, [cart]);
 
   return (
     <main className="flex flex-row flex-wrap min-h-screen  container mx-auto">
-      <div className="basis-full text-5xl font-bold my-20 max-md:ms-5 max-md:my-10">
+      <div className="basis-full text-5xl font-bold my-20 md:ms-10 max-md:ms-5 max-md:my-10">
         Desserts
       </div>
-      <div className="basis-3/5 max-md:basis-full">
+      <div className="basis-3/5 max-lg:basis-full">
         <div
           className="flex flex-row flex-wrap justify-around gap-0"
           
@@ -77,10 +83,10 @@ export default function Home() {
           })}
         </div>
       </div>
-      <div className="basis-2/5 max-md:basis-full">
-        <div className="relative md:-top-20 md:w-4/5 w-full mx-auto bg-white p-5 rounded-2xl " >
+      <div className="basis-2/5 max-lg:basis-full">
+        <div className="relative xl:-top-20 md:w-4/5 w-full mx-auto bg-white p-5 rounded-2xl " >
           <div className="my-5 mx-3 text-2xl font-bold text-Red">
-            You Cart ({cart.length})
+            You Cart ({count})
           </div>
           {cart.length == 0 ? (
             <img
