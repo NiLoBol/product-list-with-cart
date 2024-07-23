@@ -147,7 +147,7 @@ export default function Home() {
                     <img
                       className="mb-5 mt-16"
                       src="./assets/images/icon-order-confirmed.svg"
-                      alt=""
+                      alt="icon-order-confirmed"
                     />
                     <div className="lg:text-5xl text-4xl font-bold ">
                       Order Comfirmed
@@ -162,7 +162,7 @@ export default function Home() {
                         <div key={"Confirm-"+index}>
                           <div className="flex flex-wrap my-2 mx-3 items-center">
                             <div className="basis-1/6 font-medium text-lg">
-                              <img src={data[item.id].image.thumbnail} alt="" />
+                              <img src={data[item.id].image.thumbnail} alt={data[item.id].image.thumbnail} />
                             </div>
                             <div className="basis-3/6 font-medium text-lg mx-5 ">
                               <div className="text-Rose-900">
